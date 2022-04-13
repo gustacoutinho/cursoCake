@@ -44,13 +44,16 @@ class ProductsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Stock', [
-            'foreignKey' => 'product_id'
+            'foreignKey' => 'product_id',
+            'dependent' => true
         ]);
         $this->hasMany('StockIn', [
-            'foreignKey' => 'product_id'
+            'foreignKey' => 'product_id',
+            'dependent' => true
         ]);
         $this->hasMany('StockOut', [
-            'foreignKey' => 'product_id'
+            'foreignKey' => 'product_id',
+            'dependent' => true //utilizado para que quando deletado um produto também seja deletado as informações dos Stocks
         ]);
         $this->belongsToMany('Categories', [
             'foreignKey' => 'product_id',

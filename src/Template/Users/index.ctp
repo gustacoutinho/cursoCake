@@ -4,18 +4,25 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
+<div class="col-md-2" id="actions-sidebar">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= __('Opções') ?></h3>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+            <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
+            </ul>
+        </div>
+    </div>
 
-    <ul class="sidebar-menu">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Form->postLink(__('Sair'), ['action' => 'logout']) ?></li>
-        
-    </ul>
-
-<div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
+    <div class="stockOut col-md-10">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Usuários</h3>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped table-hover">
+                <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('username') ?></th>
@@ -26,32 +33,34 @@
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
-        <tbody>
+                    <tbody>
             <?php foreach ($users as $user): ?>
             <tr>
                 <td><?= $this->Number->format($user->id) ?></td>
                 <td><?= h($user->username) ?></td>
-                <td><?= h($user->password) ?></td>
+                <td><?= h('*************') ?></td>
                 <td><?= h($user->active) ?></td>
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                <td class="actions" style="white-space:nowrap">
+                <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class'=>'btn btn-default btn-xs']) ?>
+                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class'=>'btn btn-primary btn-xs']) ?>
+                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class'=>'btn btn-danger btn-xs']) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+                </table>
+                <div class="paginator text-center">
+                    <ul class="pagination">
+                        <?= $this->Paginator->prev('&laquo; ' . __('previous'), ['escape'=>false]) ?>
+                        <?= $this->Paginator->numbers(['escape'=>false]) ?>
+                        <?= $this->Paginator->next(__('next') . ' &raquo;', ['escape'=>false]) ?>
+                    </ul>
+                    <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} records out of
+                    {{count}} total, starting on record {{start}}, ending on {{end}}')) ?></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
